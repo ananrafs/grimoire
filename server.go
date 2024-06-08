@@ -19,10 +19,10 @@ type Server interface {
 type serverOpts func(server *serverImpl)
 
 type serverImpl struct {
-	collector Codex
-	caster    Caster[http.Request]
-	dMux      *dynamicMux
-	mux       sync.RWMutex
+	codex  Codex
+	caster Caster[http.Request]
+	dMux   *dynamicMux
+	mux    sync.RWMutex
 
 	onQuit func()
 
@@ -30,9 +30,9 @@ type serverImpl struct {
 	logger        logger
 }
 
-func NewServer(collector Codex, caster Caster[http.Request], opts ...serverOpts) Server {
+func NewServer(codex Codex, caster Caster[http.Request], opts ...serverOpts) Server {
 	_default := &serverImpl{
-		collector:     collector,
+		codex:         codex,
 		caster:        caster,
 		dMux:          &dynamicMux{mux: http.NewServeMux()},
 		signalHandler: defaultSignalHandler,
@@ -45,11 +45,11 @@ func NewServer(collector Codex, caster Caster[http.Request], opts ...serverOpts)
 }
 
 func (s *serverImpl) Serve(port string) (onQuit func()) {
-	if err := s.collector.Init(); err != nil {
+	if err := s.codex.Init(); err != nil {
 		s.logger.Error(fmt.Errorf("error initializing codex: %v", err))
 	}
 
-	go s.signalHandler(s.collector.GetChannel(), s.refreshHandlers)
+	go s.signalHandler(s.codex.GetChannel(), s.refreshHandlers)
 
 	s.refreshHandlers()
 
@@ -86,7 +86,7 @@ func (s *serverImpl) refreshHandlers() {
 
 	newMux := http.NewServeMux()
 
-	for _, route := range s.collector.GetAllRoute() {
+	for _, route := range s.codex.GetAllRoute() {
 		newMux.HandleFunc(route.URL,
 			s.generateHandlerFunc(route.Meta),
 		)
