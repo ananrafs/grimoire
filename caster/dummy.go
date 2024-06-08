@@ -1,4 +1,4 @@
-package magus
+package caster
 
 import (
 	"github.com/ananrafs/grimoire"

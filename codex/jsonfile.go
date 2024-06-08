@@ -1,4 +1,4 @@
-package collector
+package codex
 
 import (
 	"encoding/json"
@@ -7,17 +7,17 @@ import (
 	"sync"
 )
 
-type JsonCollector struct {
+type JsonFileCodex struct {
 	filename string
 	routes   []g.Route
 	lock     sync.Mutex
 }
 
-func NewJsonCollector(filename string) *JsonCollector {
-	return &JsonCollector{filename: filename}
+func NewJsonCodex(filename string) *JsonFileCodex {
+	return &JsonFileCodex{filename: filename}
 }
 
-func (jc *JsonCollector) Init() error {
+func (jc *JsonFileCodex) Init() error {
 	data, err := ioutil.ReadFile(jc.filename)
 	if err != nil {
 		return err
@@ -39,13 +39,13 @@ func (jc *JsonCollector) Init() error {
 	return nil
 }
 
-func (jc *JsonCollector) GetAllRoute() []g.Route {
+func (jc *JsonFileCodex) GetAllRoute() []g.Route {
 	jc.lock.Lock()
 	defer jc.lock.Unlock()
 	return jc.routes
 }
 
-func (jc *JsonCollector) GetChannel() chan struct{} {
+func (jc *JsonFileCodex) GetChannel() chan struct{} {
 	signal := make(chan struct{})
 	go watchChanges(jc.filename, func() {
 		jc.Init()

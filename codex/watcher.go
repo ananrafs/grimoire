@@ -1,4 +1,4 @@
-package collector
+package codex
 
 import (
 	"github.com/radovskyb/watcher"

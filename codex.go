@@ -1,6 +1,6 @@
 package grimoire
 
-type Collector interface {
+type Codex interface {
 	Init() error
 	GetAllRoute() []Route
 	GetChannel() (signal chan struct{})

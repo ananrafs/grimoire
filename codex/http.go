@@ -1,4 +1,4 @@
-package collector
+package codex
 
 import (
 	"context"
@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-type HttpCollector struct {
+type HttpCodex struct {
 	routes         []g.Route
 	routeLock      sync.Mutex
 	onChangeSignal chan struct{}
@@ -23,8 +23,8 @@ type HttpCollector struct {
 	quit   chan bool
 }
 
-func NewHttpCollector(port int) (out *HttpCollector, onQuit func()) {
-	_default := &HttpCollector{
+func NewHttpCodex(port int) (out *HttpCodex, onQuit func()) {
+	_default := &HttpCodex{
 		onChangeSignal: make(chan struct{}),
 		quit:           make(chan bool),
 		routes:         make([]g.Route, 0),
@@ -68,7 +68,7 @@ func NewHttpCollector(port int) (out *HttpCollector, onQuit func()) {
 	}
 }
 
-func (hc *HttpCollector) Init() error {
+func (hc *HttpCodex) Init() error {
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
@@ -87,12 +87,12 @@ func (hc *HttpCollector) Init() error {
 	return nil
 }
 
-func (hc *HttpCollector) GetAllRoute() []g.Route {
+func (hc *HttpCodex) GetAllRoute() []g.Route {
 	hc.routeLock.Lock()
 	defer hc.routeLock.Unlock()
 	return hc.routes
 }
 
-func (hc *HttpCollector) GetChannel() chan struct{} {
+func (hc *HttpCodex) GetChannel() chan struct{} {
 	return hc.onChangeSignal
 }
