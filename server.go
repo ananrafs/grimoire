@@ -76,7 +76,6 @@ func (s *serverImpl) Serve(port string) (onQuit func()) {
 			s.logger.Error(fmt.Errorf("server Shutdown: %v", err))
 		}
 		s.logger.Debug("Server gracefully stopped")
-		os.Exit(0)
 	}
 
 }

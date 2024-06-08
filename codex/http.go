@@ -55,7 +55,7 @@ func NewHttpCodex(port int) (out *HttpCodex, onQuit func()) {
 	}
 
 	return _default, func() {
-		_default.quit <- true
+		<-_default.quit
 
 		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 		defer cancel()

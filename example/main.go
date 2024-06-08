@@ -11,12 +11,12 @@ import (
 func main() {
 	var server grimoire.Server
 
-	//exampleCodex, onQuit := exampleHttpCodex()
-	//defer onQuit()
+	exampleCodex, onQuit := exampleHttpCodex()
+	defer onQuit()
 
 	server = grimoire.NewServer(
-		//exampleHttpCodex,
-		exampleJsonCodex(),
+		exampleCodex,
+		//exampleJsonCodex(),
 		//exampleYamlCodex(),
 		exampleDummyHandler(),
 		grimoire.WithThrottle(10*time.Second))
