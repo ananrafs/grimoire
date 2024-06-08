@@ -1,6 +1,8 @@
 package grimoire
 
-import "fmt"
+import (
+	"log"
+)
 
 type logger interface {
 	Error(err error)
@@ -14,9 +16,9 @@ func newdefaultLogger() logger {
 type defaultLogger struct{}
 
 func (d defaultLogger) Error(err error) {
-	fmt.Println(err)
+	log.Fatalln(err)
 }
 
 func (d defaultLogger) Debug(s string) {
-	fmt.Println(s)
+	log.Println(s)
 }

@@ -63,8 +63,7 @@ func NewHttpCodex(port int) (out *HttpCodex, onQuit func()) {
 		if err := _default.server.Shutdown(ctx); err != nil {
 			log.Fatalf("Server Shutdown: %v", err)
 		}
-
-		os.Exit(0)
+		log.Println("Server gracefully stopped")
 	}
 }
 
