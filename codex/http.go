@@ -92,6 +92,6 @@ func (hc *HttpCodex) GetAllRoute() []g.Route {
 	return hc.routes
 }
 
-func (hc *HttpCodex) GetChannel() chan struct{} {
+func (hc *HttpCodex) GetChannel() <-chan struct{} {
 	return hc.onChangeSignal
 }

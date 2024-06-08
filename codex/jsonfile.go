@@ -45,7 +45,7 @@ func (jc *JsonFileCodex) GetAllRoute() []g.Route {
 	return jc.routes
 }
 
-func (jc *JsonFileCodex) GetChannel() chan struct{} {
+func (jc *JsonFileCodex) GetChannel() <-chan struct{} {
 	signal := make(chan struct{})
 	go watchChanges(jc.filename, func() {
 		jc.Init()

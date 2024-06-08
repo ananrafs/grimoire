@@ -45,7 +45,7 @@ func (yc *YamlCodex) GetAllRoute() []g.Route {
 	return yc.routes
 }
 
-func (yc *YamlCodex) GetChannel() chan struct{} {
+func (yc *YamlCodex) GetChannel() <-chan struct{} {
 	signal := make(chan struct{})
 	go watchChanges(yc.filename, func() {
 		yc.Init()
