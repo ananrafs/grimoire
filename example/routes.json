@@ -1,0 +1,209 @@
+{
+  "routes": [
+    {
+      "url": "/route1111",
+      "meta": [
+        {
+          "request": {
+            "name": "alice"
+          },
+          "response": {
+            "message": "Hello a"
+          }
+        },
+        {
+          "request": {
+            "name": "bob1111"
+          },
+          "response": {
+            "message": "Hello Bob"
+          }
+        },
+        {
+          "request": {
+            "name": "charlie"
+          },
+          "response": {
+            "message": "Hello Charlie"
+          }
+        },
+        {
+          "request": {
+            "name": "dave"
+          },
+          "response": {
+            "message": "Hello Dave"
+          }
+        },
+        {
+          "request": {
+            "name": "eve"
+          },
+          "response": {
+            "message": "Hello Eve"
+          }
+        }
+      ]
+    },
+    {
+      "url": "/metalica/{{ song }}",
+      "meta": [
+        {
+          "request": {
+            "city": "newyork"
+          },
+          "response": {
+            "greeting": "Welcome to New York"
+          },
+          "__type": "with_template",
+          "param": {
+            "song": "bumbumpo"
+          }
+        },
+        {
+          "request": {
+            "city": "looos"
+          },
+          "response": {
+            "greeting": "Welcome to Los Angeles"
+          },
+          "__type": "with_template",
+          "param": {
+            "song": "wakacwwww"
+          }
+        },
+        {
+          "request": {
+            "city": "chicago"
+          },
+          "response": {
+            "greeting": "Welcome to Chicago"
+          },
+          "__type": "with_template",
+          "param": {
+            "song": "wakacwwww"
+          }
+        },
+        {
+          "request": {
+            "city": "houston"
+          },
+          "response": {
+            "greeting": "Welcome to Houston"
+          }
+        },
+        {
+          "request": {
+            "city": "phoenix"
+          },
+          "response": {
+            "greeting": "Welcome to Phoenix"
+          }
+        }
+      ]
+    },
+    {
+      "url": "/route3",
+      "meta": [
+        {
+          "request": {
+            "animal": "dog"
+          },
+          "response": {
+            "sound": "Woof"
+          }
+        },
+        {
+          "request": {
+            "animal": "cat"
+          },
+          "response": {
+            "sound": "Meow"
+          }
+        },
+        {
+          "request": {
+            "animal": "cow"
+          },
+          "response": {
+            "sound": "Moo"
+          }
+        },
+        {
+          "request": {
+            "animal": "sheep"
+          },
+          "response": {
+            "sound": "Baa"
+          }
+        },
+        {
+          "request": {
+            "animal": "duck"
+          },
+          "response": {
+            "sound": "Quack"
+          }
+        }
+      ]
+    },
+    {
+      "url": "/route4",
+      "meta": [
+        {
+          "request": {
+            "fruit": "apple"
+          },
+          "response": {
+            "color": "Red"
+          }
+        },
+        {
+          "request": {
+            "fruit": "banana"
+          },
+          "response": {
+            "color": "Yellow"
+          }
+        },
+        {
+          "request": {
+            "fruit": "grape"
+          },
+          "response": {
+            "color": "Purple"
+          }
+        },
+        {
+          "request": {
+            "fruit": "orange"
+          },
+          "response": {
+            "color": "Orange"
+          }
+        },
+        {
+          "request": {
+            "fruit": "lemon"
+          },
+          "response": {
+            "color": "Yellow"
+          }
+        }
+      ]
+    },
+    {
+      "url": "/mindblowing",
+      "meta": [
+        {
+          "request": {
+            "animal": "dog"
+          },
+          "response": {
+            "sound": "Woof"
+          }
+        }
+      ]
+    }
+    ]
+}
