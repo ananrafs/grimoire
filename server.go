@@ -16,9 +16,9 @@ type Server interface {
 	Serve(port string) (onQuit func())
 }
 
-type serverOpts func(server *serverImpl)
+type serverOpts func(server *servant)
 
-type serverImpl struct {
+type servant struct {
 	codex  Codex
 	caster Caster[http.Request]
 	dMux   *dynamicMux
@@ -31,7 +31,7 @@ type serverImpl struct {
 }
 
 func NewServer(codex Codex, caster Caster[http.Request], opts ...serverOpts) Server {
-	_default := &serverImpl{
+	_default := &servant{
 		codex:         codex,
 		caster:        caster,
 		dMux:          &dynamicMux{mux: http.NewServeMux()},
@@ -44,7 +44,7 @@ func NewServer(codex Codex, caster Caster[http.Request], opts ...serverOpts) Ser
 	return _default
 }
 
-func (s *serverImpl) Serve(port string) (onQuit func()) {
+func (s *servant) Serve(port string) (onQuit func()) {
 	if err := s.codex.Init(); err != nil {
 		s.logger.Error(fmt.Errorf("error initializing codex: %v", err))
 	}
@@ -80,7 +80,7 @@ func (s *serverImpl) Serve(port string) (onQuit func()) {
 
 }
 
-func (s *serverImpl) refreshHandlers() {
+func (s *servant) refreshHandlers() {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -96,7 +96,7 @@ func (s *serverImpl) refreshHandlers() {
 	s.dMux.Update(newMux)
 }
 
-func (s *serverImpl) generateHandlerFunc(meta []Meta) http.HandlerFunc {
+func (s *servant) generateHandlerFunc(meta []Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		response, err := s.caster.Cast(meta, *r)
 		if err != nil {
@@ -115,7 +115,7 @@ func defaultSignalHandler(signal <-chan struct{}, act func()) {
 }
 
 func WithThrottle(duration time.Duration) serverOpts {
-	return func(server *serverImpl) {
+	return func(server *servant) {
 		server.signalHandler = func(signal <-chan struct{}, act func()) {
 			throttle(duration, signal, act)
 		}
@@ -123,7 +123,7 @@ func WithThrottle(duration time.Duration) serverOpts {
 }
 
 func WithCustomLogger(logger logger) serverOpts {
-	return func(server *serverImpl) {
+	return func(server *servant) {
 		server.logger = logger
 	}
 }
